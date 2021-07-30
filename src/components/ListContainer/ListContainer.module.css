@@ -1,6 +1,9 @@
 .list {
     display: flex;
+    flex-direction: column;
     list-style-type: none;
+    gap: 10px;
     margin: 0;
     padding: 0;
+    color: #FFFFFF;
 }

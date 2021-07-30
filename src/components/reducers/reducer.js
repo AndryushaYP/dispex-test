@@ -14,6 +14,20 @@ const initialState = {
   streets: [],
   houses: [],
   clients: [],
+  currentCompanyId: null,
+  currentStreetId: null,
+};
+
+const getStreets = (arr, name, id) => {
+  const result = [];
+  arr.reduce((acc, item) => {
+    if (!acc[item[name]]) {
+      acc[item[name]] = item[id];
+      result.push({ id: item[id], name: item[name] });
+    }
+    return acc;
+  }, {});
+  return result;
 };
 
 const reducer = (state = initialState, action) => {
@@ -42,14 +56,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        streets: action.payload,
+        currentCompanyId: action.payload.id,
+        streets: getStreets(action.payload.streets, "streetName", "streetId"),
       };
 
     case FETCH_HOUSES_SUCCESS:
       return {
         ...state,
         loading: false,
-        houses: action.payload,
+        currentStreetId: action.payload.id,
+        houses: getStreets(action.payload.houses, "building", "houseId"),
       };
 
     case FETCH_CLIENTS_SUCCESS:

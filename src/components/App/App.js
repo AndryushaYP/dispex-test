@@ -7,9 +7,7 @@ import { getCompaniesList } from "../actions/async-actions";
 
 function App() {
   const dispatch = useDispatch();
-  const store = useSelector((state) => state);
-  const { loading, companies } = store;
-  console.log(store);
+  const loading = useSelector((state) => state.loading);
   React.useEffect(() => {
     dispatch(getCompaniesList());
   }, []);

@@ -1,4 +1,17 @@
 .item {
     margin: 0;
     padding: 0;
+    list-style-type: none;
+}
+
+.company {
+    background: red;
+}
+
+.street {
+    background: green;
+}
+
+.house {
+    background: blue;
 }

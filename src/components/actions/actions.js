@@ -14,13 +14,13 @@ export const companiesLoaded = (companies) => ({
   type: FETCH_COMPANIES_SUCCESS,
   payload: companies,
 });
-export const streetsLoaded = (streets) => ({
+export const streetsLoaded = (streets, id) => ({
   type: FETCH_STREETS_SUCCESS,
-  payload: streets,
+  payload: { streets: streets, id: id },
 });
-export const housesLoaded = (houses) => ({
+export const housesLoaded = (houses, id) => ({
   type: FETCH_HOUSES_SUCCESS,
-  payload: houses,
+  payload: { houses: houses, id: id },
 });
 export const clientsLoaded = (clients) => ({
   type: FETCH_CLIENTS_SUCCESS,

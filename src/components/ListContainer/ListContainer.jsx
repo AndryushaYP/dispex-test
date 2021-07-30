@@ -1,8 +1,8 @@
 import React from "react";
 import listContainer from "./ListContainer.module.css";
 
-const ListContainer = () => {
-  return <ul className={listContainer.list}></ul>;
+const ListContainer = ({ children }) => {
+  return <ul className={listContainer.list}>{children}</ul>;
 };
 
 export default ListContainer;

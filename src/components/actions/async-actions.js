@@ -26,7 +26,7 @@ export const getStreetsList = (id) => {
     dispatch(dataRequest());
     getStreets(id)
       .then((res) => {
-        dispatch(streetsLoaded(res));
+        dispatch(streetsLoaded(res, id));
       })
       .catch((err) => {
         dispatch(dataError(err));
@@ -39,7 +39,7 @@ export const getHousesList = (id) => {
     dispatch(dataRequest());
     getHouses(id)
       .then((res) => {
-        dispatch(housesLoaded(res));
+        dispatch(housesLoaded(res, id));
       })
       .catch((err) => {
         dispatch(dataError(err));
