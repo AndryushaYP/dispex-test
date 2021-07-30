@@ -23,6 +23,41 @@ const reducer = (state = initialState, action) => {
         ...state,
         loading: true,
       };
+
+    case FETCH_DATA_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+
+    case FETCH_COMPANIES_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        companies: action.payload,
+      };
+
+    case FETCH_STREETS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        streets: action.payload,
+      };
+
+    case FETCH_HOUSES_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        houses: action.payload,
+      };
+
+    case FETCH_CLIENTS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        clients: action.payload,
+      };
     default:
       return state;
   }
