@@ -5,6 +5,7 @@ import {
   FETCH_STREETS_SUCCESS,
   FETCH_HOUSES_SUCCESS,
   FETCH_CLIENTS_SUCCESS,
+  SET_CLIENT_DATA,
 } from "../actions/action-types";
 
 const initialState = {
@@ -16,6 +17,8 @@ const initialState = {
   clients: [],
   currentCompanyId: null,
   currentStreetId: null,
+  currentHouseId: null,
+  currentClient: null,
 };
 
 const getStreets = (arr, name, id) => {
@@ -72,7 +75,15 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        clients: action.payload,
+        currentHouseId: action.payload.id,
+        clients: action.payload.clients,
+      };
+
+    case SET_CLIENT_DATA:
+      return {
+        ...state,
+        loading: false,
+        currentClient: action.payload,
       };
     default:
       return state;

@@ -52,7 +52,7 @@ export const getClientsList = (id) => {
     dispatch(dataRequest());
     getClients(id)
       .then((res) => {
-        dispatch(clientsLoaded(res));
+        dispatch(clientsLoaded(res, id));
       })
       .catch((err) => {
         dispatch(dataError(err));

@@ -1,21 +1,24 @@
 import React from "react";
 import listItem from "./ListItem.module.css";
 import cn from "classnames";
+import { Link } from "react-router-dom";
 
-const ListItem = ({ item, id, onClick, className }) => {
+const ListItem = ({ text, id, onClick, className, item, path }) => {
   return (
-    <li
+    <Link
+      to={path}
       className={cn(listItem.item, {
         [listItem.company]: className === "company",
         [listItem.street]: className === "street",
         [listItem.house]: className === "house",
+        [listItem.client]: className === "client",
       })}
       onClick={() => {
-        onClick(id);
+        path === "/apartment" ? onClick(item) : onClick(id);
       }}
     >
-      {item}
-    </li>
+      {text}
+    </Link>
   );
 };
 

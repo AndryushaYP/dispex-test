@@ -1,17 +1,27 @@
 .item {
+    color: black;
     margin: 0;
-    padding: 0;
+    padding: 5px;
     list-style-type: none;
+    border-radius: 3px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .company {
-    background: red;
+    background: rgb(211, 193, 193);
 }
 
 .street {
-    background: green;
+    background: rgb(172, 207, 172);
 }
 
 .house {
-    background: blue;
+    background: rgb(201, 201, 224);
+}
+
+.client {
+    background: rgb(0, 162, 255);
+    color: #FFFFFF;
 }

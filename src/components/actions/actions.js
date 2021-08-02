@@ -5,6 +5,7 @@ import {
   FETCH_STREETS_SUCCESS,
   FETCH_HOUSES_SUCCESS,
   FETCH_CLIENTS_SUCCESS,
+  SET_CLIENT_DATA,
 } from "./action-types";
 
 export const dataRequest = () => ({ type: FETCH_DATA_REQUEST });
@@ -22,7 +23,9 @@ export const housesLoaded = (houses, id) => ({
   type: FETCH_HOUSES_SUCCESS,
   payload: { houses: houses, id: id },
 });
-export const clientsLoaded = (clients) => ({
+export const clientsLoaded = (clients, id) => ({
   type: FETCH_CLIENTS_SUCCESS,
-  payload: clients,
+  payload: { clients: clients, id: id },
 });
+
+export const setClientData = (client) => ({ type: SET_CLIENT_DATA, payload: client });
