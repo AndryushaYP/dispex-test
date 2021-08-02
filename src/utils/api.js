@@ -23,3 +23,48 @@ export async function getClients(id) {
   let data = await response.json();
   return data;
 }
+
+export async function addClient({ name, phone, email }) {
+  let response = await fetch(`${BASE_URL}/client`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      Name: name,
+      Phone: phone,
+      Email: email,
+    }),
+  });
+  let data = await response.json();
+  return data;
+}
+
+export async function bindClientToApartment({ addressId, clientId }) {
+  let response = await fetch(`${BASE_URL}/bind_client`, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      AddresId: addressId,
+      ClientId: clientId,
+    }),
+  });
+  let data = await response.json();
+  return data;
+}
+
+export async function deleteClient({ clientBindId }) {
+  let response = await fetch(`${BASE_URL}/bind_client/${clientBindId}`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+  let data = await response.json();
+  return data;
+}

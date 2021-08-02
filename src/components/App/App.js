@@ -5,27 +5,36 @@ import Preloader from "../Preloader/Preloader";
 import { useSelector, useDispatch } from "react-redux";
 import { getCompaniesList } from "../actions/async-actions";
 import { Switch, Route } from "react-router-dom";
-import Popup from "../Popup/Popup";
+import ApartmentInfo from "../ApartmentInfo/ApartmentInfo";
+import ClientForm from "../ClientForm/ClientForm";
 
 function App() {
+  const [isOpen, setIsOpen] = React.useState(false);
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.loading);
-  const client = useSelector((state) => state.currentClient);
-  console.log(client);
+  const apartment = useSelector((state) => state.currentApartment);
+
+  //Показать/скрыть форму
+  const handleClickButton = () => {
+    setIsOpen(!isOpen);
+  };
+
   React.useEffect(() => {
     dispatch(getCompaniesList());
   }, []);
+
   return (
     <div className={app.container}>
       <Switch>
         <Route exact path="/">
           <MainLists />
-          {loading && <Preloader />}
         </Route>
         <Route path="/apartment">
-          <Popup />
+          <ApartmentInfo apartment={apartment} onClick={handleClickButton} />
+          {isOpen && <ClientForm apartment={apartment} onClose={handleClickButton} />}
         </Route>
       </Switch>
+      {loading && <Preloader />}
     </div>
   );
 }

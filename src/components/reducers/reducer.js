@@ -18,7 +18,7 @@ const initialState = {
   currentCompanyId: null,
   currentStreetId: null,
   currentHouseId: null,
-  currentClient: null,
+  currentApartment: null,
 };
 
 const getStreets = (arr, name, id) => {
@@ -83,7 +83,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        currentClient: action.payload,
+        currentApartment: action.payload,
       };
     default:
       return state;

@@ -1,0 +1,30 @@
+.section {
+
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    list-style-type: none;
+    padding: 0;
+}
+
+.client {
+    display: flex;
+    gap: 10px;
+}
+
+.button_container {
+    display: flex;
+    gap: 10px;
+}
+
+.button {
+    text-decoration: none;
+    width: 100px;
+    text-align: center;
+    height: 20px;
+    border: 1px solid black;
+    margin: 0;
+}
