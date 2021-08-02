@@ -24,8 +24,8 @@ export async function getClients(id) {
   return data;
 }
 
-export async function addClient({ name, phone, email }) {
-  let response = await fetch(`${BASE_URL}/client`, {
+export async function addNewClient({ name, phone, email }) {
+  let response = await fetch(`${BASE_URL}/HousingStock/client`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -42,14 +42,15 @@ export async function addClient({ name, phone, email }) {
 }
 
 export async function bindClientToApartment({ addressId, clientId }) {
-  let response = await fetch(`${BASE_URL}/bind_client`, {
+  let response = await fetch(`${BASE_URL}/HousingStock/bind_client`, {
     method: "PUT",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
     },
     body: JSON.stringify({
-      AddresId: addressId,
+      AddressId: addressId,
       ClientId: clientId,
     }),
   });
@@ -57,8 +58,9 @@ export async function bindClientToApartment({ addressId, clientId }) {
   return data;
 }
 
-export async function deleteClient({ clientBindId }) {
-  let response = await fetch(`${BASE_URL}/bind_client/${clientBindId}`, {
+export async function deleteClientFromApartment(clientBindId) {
+  console.log(clientBindId, "api");
+  let response = await fetch(`${BASE_URL}/HousingStock/bind_client/${clientBindId}`, {
     method: "DELETE",
     headers: {
       Accept: "application/json",

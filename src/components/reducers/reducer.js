@@ -6,6 +6,9 @@ import {
   FETCH_HOUSES_SUCCESS,
   FETCH_CLIENTS_SUCCESS,
   SET_CLIENT_DATA,
+  CLIENT_ADDED_TO_APARTMENT,
+  CLIENT_BIND_TO_APARTMENT,
+  CLIENT_DELETE_FROM_APARTMENT,
 } from "../actions/action-types";
 
 const initialState = {
@@ -19,6 +22,7 @@ const initialState = {
   currentStreetId: null,
   currentHouseId: null,
   currentApartment: null,
+  newClientId: null,
 };
 
 const getStreets = (arr, name, id) => {
@@ -84,6 +88,29 @@ const reducer = (state = initialState, action) => {
         ...state,
         loading: false,
         currentApartment: action.payload,
+      };
+
+    case CLIENT_ADDED_TO_APARTMENT:
+      return {
+        ...state,
+        loading: false,
+        newClientId: action.payload.id,
+      };
+
+    case CLIENT_BIND_TO_APARTMENT:
+      return {
+        ...state,
+        loading: false,
+        newClientId: null,
+        currentApartment: {
+          ...state.currentApartment,
+          clients: [...state.currentApartment.clients, action.payload],
+        },
+      };
+    case CLIENT_DELETE_FROM_APARTMENT:
+      return {
+        ...state,
+        loading: false,
       };
     default:
       return state;

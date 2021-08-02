@@ -1,4 +1,12 @@
-import { getCompanies, getStreets, getHouses, getClients } from "../../utils/api";
+import {
+  getCompanies,
+  getStreets,
+  getHouses,
+  getClients,
+  addNewClient,
+  bindClientToApartment,
+  deleteClientFromApartment,
+} from "../../utils/api";
 import {
   dataRequest,
   dataError,
@@ -6,7 +14,50 @@ import {
   streetsLoaded,
   housesLoaded,
   clientsLoaded,
+  addClient,
+  bindClient,
+  deleteClient,
 } from "./actions";
+
+export const removeClient = (bindId) => {
+  console.log(bindId, "async");
+  return (dispatch) => {
+    dispatch(dataRequest());
+    deleteClientFromApartment(bindId)
+      .then((res) => {
+        dispatch(deleteClient(res));
+      })
+      .catch((err) => {
+        dispatch(dataError(err));
+      });
+  };
+};
+
+export const updateClients = ({ addressId, clientId }) => {
+  return (dispatch) => {
+    dispatch(dataRequest());
+    bindClientToApartment({ addressId, clientId })
+      .then((res) => {
+        dispatch(bindClient(res));
+      })
+      .catch((err) => {
+        dispatch(dataError(err));
+      });
+  };
+};
+
+export const addedNewClient = ({ name, phone, email }) => {
+  return (dispatch) => {
+    dispatch(dataRequest());
+    addNewClient({ name, phone, email })
+      .then((res) => {
+        dispatch(addClient(res));
+      })
+      .catch((err) => {
+        dispatch(dataError(err));
+      });
+  };
+};
 
 export const getCompaniesList = () => {
   return (dispatch) => {

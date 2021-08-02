@@ -31,35 +31,35 @@ const MainLists = () => {
   return (
     <section className={mainLists.lists}>
       <ListContainer>
-        {companies.map((company, id) => (
+        {companies.map((company) => (
           <>
             <ListItem
               path="/"
               className="company"
-              key={id}
+              key={company.id}
               text={company.name}
               id={company.id}
               onClick={handleClickCompany}
             />
             {currentCompanyId === company.id && (
               <ListContainer>
-                {streets.map((street, id) => (
+                {streets.map((street) => (
                   <>
                     <ListItem
                       className="street"
                       path="/"
-                      key={id}
+                      key={street.id}
                       text={street.name}
                       id={street.id}
                       onClick={handleClickStreet}
                     />
                     {currentStreetId === street.id && (
                       <ListContainer>
-                        {houses.map((house, id) => (
+                        {houses.map((house) => (
                           <>
                             <ListItem
                               path="/"
-                              key={id}
+                              key={house.id}
                               text={house.name}
                               id={house.id}
                               className="house"
@@ -67,11 +67,11 @@ const MainLists = () => {
                             />
                             {currentHouseId === house.id && (
                               <ListContainer className="clients">
-                                {clients.map((client, id) => (
+                                {clients.map((client) => (
                                   <ListItem
                                     path="/apartment"
                                     className="client"
-                                    key={id}
+                                    key={client.addressId}
                                     text={client.addressId}
                                     id={client.addressId}
                                     item={client}
