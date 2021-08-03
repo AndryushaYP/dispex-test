@@ -18,18 +18,32 @@ const MainLists = () => {
     store;
 
   const handleClickCompany = (id) => {
-    dispatch(getDataList(getData, streetsLoaded, "/HousingStock?companyId=", id));
-    setIsVisibleStreets(!isVisibleStreets);
+    if (currentCompanyId !== id) {
+      dispatch(getDataList(getData, streetsLoaded, "/HousingStock?companyId=", id));
+      setIsVisibleStreets(true);
+    }
+    if (currentCompanyId === id) {
+      setIsVisibleStreets(!isVisibleStreets);
+    }
   };
 
   const handleClickStreet = (id) => {
-    dispatch(getDataList(getData, housesLoaded, "/HousingStock?streetId=", id));
-    setIsVisibleHouses(!isVisibleHouses);
+    if (currentStreetId !== id) {
+      dispatch(getDataList(getData, housesLoaded, "/HousingStock?streetId=", id));
+      setIsVisibleHouses(true);
+    }
+    if (currentStreetId === id) {
+      setIsVisibleHouses(!isVisibleHouses);
+    }
   };
 
   const handleClickHouse = (id) => {
-    dispatch(getDataList(getData, clientsLoaded, "/HousingStock?houseId=", id));
-    setIsVisibleClients(!isVisibleClients);
+    if (currentHouseId !== id) {
+      dispatch(getDataList(getData, clientsLoaded, "/HousingStock?houseId=", id));
+      setIsVisibleClients(true);
+    } else {
+      setIsVisibleClients(!isVisibleClients);
+    }
   };
 
   const handleClickClient = (client) => {
