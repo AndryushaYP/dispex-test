@@ -5,7 +5,7 @@ import ListItem from "../ListItem/ListItem";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataList } from "../actions/async-actions";
 import { setClientData, streetsLoaded, housesLoaded, clientsLoaded } from "../actions/actions";
-import { getStreets, getHouses, getClients } from "../../utils/api";
+import { getData } from "../../utils/api";
 
 const MainLists = () => {
   const [isVisibleStreets, setIsVisibleStreets] = React.useState(false);
@@ -18,17 +18,17 @@ const MainLists = () => {
     store;
 
   const handleClickCompany = (id) => {
-    dispatch(getDataList(getStreets, streetsLoaded, id));
+    dispatch(getDataList(getData, streetsLoaded, "/HousingStock?companyId=", id));
     setIsVisibleStreets(!isVisibleStreets);
   };
 
   const handleClickStreet = (id) => {
-    dispatch(getDataList(getHouses, housesLoaded, id));
+    dispatch(getDataList(getData, housesLoaded, "/HousingStock?streetId=", id));
     setIsVisibleHouses(!isVisibleHouses);
   };
 
   const handleClickHouse = (id) => {
-    dispatch(getDataList(getClients, clientsLoaded, id));
+    dispatch(getDataList(getData, clientsLoaded, "/HousingStock?houseId=", id));
     setIsVisibleClients(!isVisibleClients);
   };
 

@@ -3,15 +3,9 @@ import app from "./App.module.css";
 import MainLists from "../MainLists/MainLists";
 import Preloader from "../Preloader/Preloader";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  getDataList,
-  addedNewClient,
-  updateClients,
-  removeClient,
-  getClientsList,
-} from "../actions/async-actions";
-import { setClientData, companiesLoaded } from "../actions/actions";
-import { getCompanies } from "../../utils/api";
+import { getDataList, addedNewClient, updateClients, removeClient } from "../actions/async-actions";
+import { companiesLoaded } from "../actions/actions";
+import { getData } from "../../utils/api";
 import { Switch, Route } from "react-router-dom";
 import ApartmentInfo from "../ApartmentInfo/ApartmentInfo";
 import ClientForm from "../ClientForm/ClientForm";
@@ -20,10 +14,10 @@ function App() {
   const [isOpen, setIsOpen] = React.useState(false);
   const dispatch = useDispatch();
   const store = useSelector((state) => state);
-  const { loading, currentApartment, newClientId, currentHouseId } = store;
+  const { loading, currentApartment, newClientId } = store;
 
   React.useEffect(() => {
-    dispatch(getDataList(getCompanies, companiesLoaded));
+    dispatch(getDataList(getData, companiesLoaded, "/Request/companies"));
   }, []);
 
   //Показать/скрыть форму

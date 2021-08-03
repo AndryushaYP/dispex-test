@@ -1,10 +1,10 @@
 import { addNewClient, bindClientToApartment, deleteClientFromApartment } from "../../utils/api";
 import { dataRequest, dataError, addClient, bindClient, deleteClient } from "./actions";
 
-export const getDataList = (getFn, actionFn, id) => {
+export const getDataList = (getFn, actionFn, path, id) => {
   return (dispatch) => {
     dispatch(dataRequest());
-    getFn(id)
+    getFn(path, id)
       .then((res) => {
         dispatch(actionFn(res, id));
       })
