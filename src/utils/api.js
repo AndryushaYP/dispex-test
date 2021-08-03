@@ -42,7 +42,7 @@ export async function addNewClient({ name, phone, email }) {
 }
 
 export async function bindClientToApartment({ addressId, clientId }) {
-  let response = await fetch(`${BASE_URL}/HousingStock/bind_client`, {
+  await fetch(`${BASE_URL}/HousingStock/bind_client`, {
     method: "PUT",
     headers: {
       Accept: "application/json",
@@ -54,19 +54,14 @@ export async function bindClientToApartment({ addressId, clientId }) {
       ClientId: clientId,
     }),
   });
-  let data = await response.json();
-  return data;
 }
 
 export async function deleteClientFromApartment(clientBindId) {
-  console.log(clientBindId, "api");
-  let response = await fetch(`${BASE_URL}/HousingStock/bind_client/${clientBindId}`, {
+  await fetch(`${BASE_URL}/HousingStock/bind_client/${clientBindId}`, {
     method: "DELETE",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
   });
-  let data = await response.json();
-  return data;
 }

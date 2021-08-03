@@ -20,12 +20,11 @@ import {
 } from "./actions";
 
 export const removeClient = (bindId) => {
-  console.log(bindId, "async");
   return (dispatch) => {
     dispatch(dataRequest());
     deleteClientFromApartment(bindId)
       .then((res) => {
-        dispatch(deleteClient(res));
+        dispatch(deleteClient(bindId));
       })
       .catch((err) => {
         dispatch(dataError(err));

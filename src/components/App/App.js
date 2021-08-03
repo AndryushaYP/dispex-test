@@ -8,7 +8,9 @@ import {
   addedNewClient,
   updateClients,
   removeClient,
+  getClientsList,
 } from "../actions/async-actions";
+import { setClientData } from "../actions/actions";
 import { Switch, Route } from "react-router-dom";
 import ApartmentInfo from "../ApartmentInfo/ApartmentInfo";
 import ClientForm from "../ClientForm/ClientForm";
@@ -17,7 +19,7 @@ function App() {
   const [isOpen, setIsOpen] = React.useState(false);
   const dispatch = useDispatch();
   const store = useSelector((state) => state);
-  const { loading, currentApartment, newClientId } = store;
+  const { loading, currentApartment, newClientId, currentHouseId } = store;
 
   //Показать/скрыть форму
   const handleClickButton = () => {
@@ -31,7 +33,6 @@ function App() {
 
   //Прописать юзера в квартире
   const handleUpdateClients = ({ addressId, clientId }) => {
-    console.log(addressId, clientId);
     dispatch(updateClients({ addressId, clientId }));
   };
 

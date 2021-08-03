@@ -37,6 +37,10 @@ const getStreets = (arr, name, id) => {
   return result;
 };
 
+const updateClients = (obj, id) => {
+  return obj.clients.filter((item) => item.bindId !== id);
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_DATA_REQUEST:
@@ -102,15 +106,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         loading: false,
         newClientId: null,
-        currentApartment: {
-          ...state.currentApartment,
-          clients: [...state.currentApartment.clients, action.payload],
-        },
       };
     case CLIENT_DELETE_FROM_APARTMENT:
+      const id = action.payload;
       return {
         ...state,
         loading: false,
+        currentApartment: {
+          ...state.currentApartment,
+          clients: updateClients(state.currentApartment, id),
+        },
       };
     default:
       return state;

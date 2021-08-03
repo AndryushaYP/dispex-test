@@ -7,13 +7,19 @@ import { getStreetsList, getHousesList, getClientsList } from "../actions/async-
 import { setClientData } from "../actions/actions";
 
 const MainLists = () => {
+  const [isActive, setIsActive] = React.useState(false);
   const dispatch = useDispatch();
   const store = useSelector((state) => state);
   const { companies, streets, houses, clients, currentCompanyId, currentStreetId, currentHouseId } =
     store;
 
   const handleClickCompany = (id) => {
-    dispatch(getStreetsList(id));
+    if (id === currentCompanyId) {
+      setIsActive(!isActive);
+    } else {
+      dispatch(getStreetsList(id));
+      setIsActive(true);
+    }
   };
 
   const handleClickStreet = (id) => {
@@ -25,6 +31,7 @@ const MainLists = () => {
   };
 
   const handleClickClient = (client) => {
+    console.log(client);
     dispatch(setClientData(client));
   };
 
@@ -41,7 +48,7 @@ const MainLists = () => {
               id={company.id}
               onClick={handleClickCompany}
             />
-            {currentCompanyId === company.id && (
+            {isActive && currentCompanyId === company.id && (
               <ListContainer>
                 {streets.map((street) => (
                   <>
