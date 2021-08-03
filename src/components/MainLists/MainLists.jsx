@@ -57,6 +57,7 @@ const MainLists = () => {
         {companies.map((company) => (
           <>
             <ListItem
+              currentId={currentCompanyId}
               path="/"
               className="company"
               key={company.id}
@@ -69,6 +70,7 @@ const MainLists = () => {
                 {streets.map((street) => (
                   <>
                     <ListItem
+                      currentId={currentStreetId}
                       className="street"
                       path="/"
                       key={street.id}
@@ -81,6 +83,7 @@ const MainLists = () => {
                         {houses.map((house) => (
                           <>
                             <ListItem
+                              currentId={currentHouseId}
                               path="/"
                               key={house.id}
                               text={house.name}

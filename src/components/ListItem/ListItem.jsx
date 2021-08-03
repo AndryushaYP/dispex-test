@@ -3,11 +3,12 @@ import listItem from "./ListItem.module.css";
 import cn from "classnames";
 import { Link } from "react-router-dom";
 
-const ListItem = ({ text, id, onClick, className, item, path }) => {
+const ListItem = ({ text, id, onClick, className, item, path, currentId }) => {
   return (
     <Link
       to={path}
       className={cn(listItem.item, {
+        [listItem.active]: id === currentId,
         [listItem.company]: className === "company",
         [listItem.street]: className === "street",
         [listItem.house]: className === "house",

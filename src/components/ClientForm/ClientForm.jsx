@@ -2,7 +2,7 @@ import React from "react";
 import clientForm from "./ClientForm.module.css";
 import Popup from "../Popup/Popup";
 
-const ClientForm = ({ apartment, onClose, onSubmit }) => {
+const ClientForm = ({ onClose, onSubmit }) => {
   const [data, setData] = React.useState({ name: "", phone: "", email: "" });
 
   const handleChange = (e) => {
@@ -48,10 +48,10 @@ const ClientForm = ({ apartment, onClose, onSubmit }) => {
           />
         </label>
         <button type="submit" className={clientForm.button}>
-          Заселиться!
+          Confirm
         </button>
         <button className={clientForm.button} onClick={onClose}>
-          Зыкрыть
+          Cancel
         </button>
       </form>
     </Popup>

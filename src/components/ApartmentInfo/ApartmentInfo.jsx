@@ -2,11 +2,19 @@ import React from "react";
 import apartmentInfo from "./ApartmentInfo.module.css";
 import { Link } from "react-router-dom";
 
-const ApartmentInfo = ({ apartment, onClick, newClient, onUpdateClients, onDelete }) => {
+const ApartmentInfo = ({
+  apartment,
+  onClick,
+  newClient,
+  onUpdateClients,
+  onDelete,
+  currentHouseId,
+}) => {
   const { addressId, clients } = apartment;
   return (
     <section className={apartmentInfo.section}>
-      <h2>Список жильцов:</h2>
+      {clients.length === 0 ? <p>Здесь пока никто не живет...</p> : <h2>Список жильцов:</h2>}
+
       <ul className={apartmentInfo.list}>
         {clients.map((client) => (
           <div className={apartmentInfo.client}>
@@ -20,12 +28,14 @@ const ApartmentInfo = ({ apartment, onClick, newClient, onUpdateClients, onDelet
       {newClient && (
         <div>
           <p>Прописать {newClient}? Хорошенько подумайте.</p>
-          <button onClick={() => onUpdateClients({ addressId, clientId: newClient })}>
+          <button
+            onClick={() => onUpdateClients({ addressId, clientId: newClient }, currentHouseId)}
+          >
             Прописать!
           </button>
         </div>
       )}
-      <p>Хотите жить с этими людьми?</p>
+      <p>Хотите стать клиентом нашей компании?</p>
       <div className={apartmentInfo.button_container}>
         <Link className={apartmentInfo.button} to="/apartment" onClick={onClick}>
           Да

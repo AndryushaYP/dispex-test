@@ -1,5 +1,18 @@
-import { addNewClient, bindClientToApartment, deleteClientFromApartment } from "../../utils/api";
-import { dataRequest, dataError, addClient, bindClient, deleteClient } from "./actions";
+import {
+  addNewClient,
+  bindClientToApartment,
+  deleteClientFromApartment,
+  getData,
+} from "../../utils/api";
+import {
+  dataRequest,
+  dataError,
+  addClient,
+  bindClient,
+  deleteClient,
+  clientsLoaded,
+  setClientData,
+} from "./actions";
 
 export const getDataList = (getFn, actionFn, path, id) => {
   return (dispatch) => {
@@ -26,12 +39,23 @@ export const addedNewClient = ({ name, phone, email }) => {
   };
 };
 
-export const updateClients = ({ addressId, clientId }) => {
+export const updateClients = ({ addressId, clientId }, houseId) => {
   return (dispatch) => {
     dispatch(dataRequest());
     bindClientToApartment({ addressId, clientId })
       .then((res) => {
-        dispatch(bindClient(res));
+        dispatch(bindClient(addressId));
+      })
+      .then((res) => {
+        getData("/HousingStock?houseId=", houseId).then((res) => {
+          let newApartment;
+          res.filter((item) => {
+            if (item.addressId === addressId) {
+              newApartment = { ...item };
+            }
+          });
+          dispatch(setClientData(newApartment));
+        });
       })
       .catch((err) => {
         dispatch(dataError(err));

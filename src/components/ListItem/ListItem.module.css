@@ -25,3 +25,8 @@
     background: rgb(0, 162, 255);
     color: #FFFFFF;
 }
+
+.active {
+    background: #FFFFFF;
+    border: 5px solid green;
+}

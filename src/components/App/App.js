@@ -14,7 +14,7 @@ function App() {
   const [isOpen, setIsOpen] = React.useState(false);
   const dispatch = useDispatch();
   const store = useSelector((state) => state);
-  const { loading, currentApartment, newClientId } = store;
+  const { loading, currentApartment, newClientId, currentHouseId } = store;
 
   React.useEffect(() => {
     dispatch(getDataList(getData, companiesLoaded, "/Request/companies"));
@@ -31,8 +31,8 @@ function App() {
   };
 
   //Прописать юзера в квартире
-  const handleUpdateClients = ({ addressId, clientId }) => {
-    dispatch(updateClients({ addressId, clientId }));
+  const handleUpdateClients = ({ addressId, clientId }, houseId) => {
+    dispatch(updateClients({ addressId, clientId }, houseId));
   };
 
   //Удалить жильца
@@ -48,6 +48,7 @@ function App() {
         </Route>
         <Route path="/apartment">
           <ApartmentInfo
+            currentHouseId={currentHouseId}
             apartment={currentApartment}
             onClick={handleClickButton}
             newClient={newClientId}
