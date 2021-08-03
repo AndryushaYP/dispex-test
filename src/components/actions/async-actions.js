@@ -1,30 +1,24 @@
-import {
-  getCompanies,
-  getStreets,
-  getHouses,
-  getClients,
-  addNewClient,
-  bindClientToApartment,
-  deleteClientFromApartment,
-} from "../../utils/api";
-import {
-  dataRequest,
-  dataError,
-  companiesLoaded,
-  streetsLoaded,
-  housesLoaded,
-  clientsLoaded,
-  addClient,
-  bindClient,
-  deleteClient,
-} from "./actions";
+import { addNewClient, bindClientToApartment, deleteClientFromApartment } from "../../utils/api";
+import { dataRequest, dataError, addClient, bindClient, deleteClient } from "./actions";
 
-export const removeClient = (bindId) => {
+export const getDataList = (getFn, actionFn, id) => {
   return (dispatch) => {
     dispatch(dataRequest());
-    deleteClientFromApartment(bindId)
+    getFn(id)
       .then((res) => {
-        dispatch(deleteClient(bindId));
+        dispatch(actionFn(res, id));
+      })
+      .catch((err) => {
+        dispatch(dataError(err));
+      });
+  };
+};
+export const addedNewClient = ({ name, phone, email }) => {
+  return (dispatch) => {
+    dispatch(dataRequest());
+    addNewClient({ name, phone, email })
+      .then((res) => {
+        dispatch(addClient(res));
       })
       .catch((err) => {
         dispatch(dataError(err));
@@ -45,64 +39,12 @@ export const updateClients = ({ addressId, clientId }) => {
   };
 };
 
-export const addedNewClient = ({ name, phone, email }) => {
+export const removeClient = (bindId) => {
   return (dispatch) => {
     dispatch(dataRequest());
-    addNewClient({ name, phone, email })
+    deleteClientFromApartment(bindId)
       .then((res) => {
-        dispatch(addClient(res));
-      })
-      .catch((err) => {
-        dispatch(dataError(err));
-      });
-  };
-};
-
-export const getCompaniesList = () => {
-  return (dispatch) => {
-    dispatch(dataRequest());
-    getCompanies()
-      .then((res) => {
-        dispatch(companiesLoaded(res));
-      })
-      .catch((err) => {
-        dispatch(dataError(err));
-      });
-  };
-};
-
-export const getStreetsList = (id) => {
-  return (dispatch) => {
-    dispatch(dataRequest());
-    getStreets(id)
-      .then((res) => {
-        dispatch(streetsLoaded(res, id));
-      })
-      .catch((err) => {
-        dispatch(dataError(err));
-      });
-  };
-};
-
-export const getHousesList = (id) => {
-  return (dispatch) => {
-    dispatch(dataRequest());
-    getHouses(id)
-      .then((res) => {
-        dispatch(housesLoaded(res, id));
-      })
-      .catch((err) => {
-        dispatch(dataError(err));
-      });
-  };
-};
-
-export const getClientsList = (id) => {
-  return (dispatch) => {
-    dispatch(dataRequest());
-    getClients(id)
-      .then((res) => {
-        dispatch(clientsLoaded(res, id));
+        dispatch(deleteClient(bindId));
       })
       .catch((err) => {
         dispatch(dataError(err));

@@ -13,7 +13,7 @@ const ListItem = ({ text, id, onClick, className, item, path }) => {
         [listItem.house]: className === "house",
         [listItem.client]: className === "client",
       })}
-      onClick={() => {
+      onClick={(e) => {
         path === "/apartment" ? onClick(item) : onClick(id);
       }}
     >

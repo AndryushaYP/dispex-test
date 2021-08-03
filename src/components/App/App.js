@@ -4,13 +4,14 @@ import MainLists from "../MainLists/MainLists";
 import Preloader from "../Preloader/Preloader";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  getCompaniesList,
+  getDataList,
   addedNewClient,
   updateClients,
   removeClient,
   getClientsList,
 } from "../actions/async-actions";
-import { setClientData } from "../actions/actions";
+import { setClientData, companiesLoaded } from "../actions/actions";
+import { getCompanies } from "../../utils/api";
 import { Switch, Route } from "react-router-dom";
 import ApartmentInfo from "../ApartmentInfo/ApartmentInfo";
 import ClientForm from "../ClientForm/ClientForm";
@@ -20,6 +21,10 @@ function App() {
   const dispatch = useDispatch();
   const store = useSelector((state) => state);
   const { loading, currentApartment, newClientId, currentHouseId } = store;
+
+  React.useEffect(() => {
+    dispatch(getDataList(getCompanies, companiesLoaded));
+  }, []);
 
   //Показать/скрыть форму
   const handleClickButton = () => {
@@ -40,10 +45,6 @@ function App() {
   const handleDelete = (bindId) => {
     dispatch(removeClient(bindId));
   };
-
-  React.useEffect(() => {
-    dispatch(getCompaniesList());
-  }, []);
 
   return (
     <div className={app.container}>

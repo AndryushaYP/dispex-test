@@ -3,31 +3,33 @@ import mainLists from "./MainLists.module.css";
 import ListContainer from "../ListContainer/ListContainer";
 import ListItem from "../ListItem/ListItem";
 import { useDispatch, useSelector } from "react-redux";
-import { getStreetsList, getHousesList, getClientsList } from "../actions/async-actions";
-import { setClientData } from "../actions/actions";
+import { getDataList } from "../actions/async-actions";
+import { setClientData, streetsLoaded, housesLoaded, clientsLoaded } from "../actions/actions";
+import { getStreets, getHouses, getClients } from "../../utils/api";
 
 const MainLists = () => {
-  const [isActive, setIsActive] = React.useState(false);
+  const [isVisibleStreets, setIsVisibleStreets] = React.useState(false);
+  const [isVisibleHouses, setIsVisibleHouses] = React.useState(false);
+  const [isVisibleClients, setIsVisibleClients] = React.useState(false);
+
   const dispatch = useDispatch();
   const store = useSelector((state) => state);
   const { companies, streets, houses, clients, currentCompanyId, currentStreetId, currentHouseId } =
     store;
 
   const handleClickCompany = (id) => {
-    if (id === currentCompanyId) {
-      setIsActive(!isActive);
-    } else {
-      dispatch(getStreetsList(id));
-      setIsActive(true);
-    }
+    dispatch(getDataList(getStreets, streetsLoaded, id));
+    setIsVisibleStreets(!isVisibleStreets);
   };
 
   const handleClickStreet = (id) => {
-    dispatch(getHousesList(id));
+    dispatch(getDataList(getHouses, housesLoaded, id));
+    setIsVisibleHouses(!isVisibleHouses);
   };
 
   const handleClickHouse = (id) => {
-    dispatch(getClientsList(id));
+    dispatch(getDataList(getClients, clientsLoaded, id));
+    setIsVisibleClients(!isVisibleClients);
   };
 
   const handleClickClient = (client) => {
@@ -48,7 +50,7 @@ const MainLists = () => {
               id={company.id}
               onClick={handleClickCompany}
             />
-            {isActive && currentCompanyId === company.id && (
+            {isVisibleStreets && currentCompanyId === company.id && (
               <ListContainer>
                 {streets.map((street) => (
                   <>
@@ -60,7 +62,7 @@ const MainLists = () => {
                       id={street.id}
                       onClick={handleClickStreet}
                     />
-                    {currentStreetId === street.id && (
+                    {isVisibleHouses && currentStreetId === street.id && (
                       <ListContainer>
                         {houses.map((house) => (
                           <>
@@ -72,7 +74,7 @@ const MainLists = () => {
                               className="house"
                               onClick={handleClickHouse}
                             />
-                            {currentHouseId === house.id && (
+                            {isVisibleClients && currentHouseId === house.id && (
                               <ListContainer className="clients">
                                 {clients.map((client) => (
                                   <ListItem
