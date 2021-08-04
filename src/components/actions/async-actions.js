@@ -10,7 +10,6 @@ import {
   addClient,
   bindClient,
   deleteClient,
-  clientsLoaded,
   setClientData,
 } from "./actions";
 

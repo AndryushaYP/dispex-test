@@ -1,6 +1,6 @@
 import React from "react";
 import apartmentInfo from "./ApartmentInfo.module.css";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 const ApartmentInfo = ({
   apartment,
@@ -10,14 +10,17 @@ const ApartmentInfo = ({
   onDelete,
   currentHouseId,
 }) => {
-  const { addressId, clients } = apartment;
-  return (
+  return apartment !== null ? (
     <section className={apartmentInfo.section}>
-      {clients.length === 0 ? <p>Здесь пока никто не живет...</p> : <h2>Список жильцов:</h2>}
+      {apartment.clients.length === 0 ? (
+        <p>Здесь пока никто не живет...</p>
+      ) : (
+        <h2>Список жильцов:</h2>
+      )}
 
       <ul className={apartmentInfo.list}>
-        {clients.map((client) => (
-          <div className={apartmentInfo.client}>
+        {apartment.clients.map((client) => (
+          <div key={client.bindId} className={apartmentInfo.client}>
             <li>{client.name}</li>
             <button type="button" onClick={() => onDelete(client.bindId)}>
               Адьёс!
@@ -29,7 +32,12 @@ const ApartmentInfo = ({
         <div>
           <p>Прописать {newClient}? Хорошенько подумайте.</p>
           <button
-            onClick={() => onUpdateClients({ addressId, clientId: newClient }, currentHouseId)}
+            onClick={() =>
+              onUpdateClients(
+                { addressId: apartment.addressId, clientId: newClient },
+                currentHouseId
+              )
+            }
           >
             Прописать!
           </button>
@@ -45,6 +53,8 @@ const ApartmentInfo = ({
         </Link>
       </div>
     </section>
+  ) : (
+    <Redirect to="/" />
   );
 };
 

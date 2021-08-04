@@ -13,7 +13,7 @@ const MainLists = () => {
   const [isVisibleClients, setIsVisibleClients] = React.useState(false);
 
   const dispatch = useDispatch();
-  const store = useSelector((state) => state);
+  const store = useSelector((state) => state.homePageReducer);
   const { companies, streets, houses, clients, currentCompanyId, currentStreetId, currentHouseId } =
     store;
 
@@ -47,7 +47,6 @@ const MainLists = () => {
   };
 
   const handleClickClient = (client) => {
-    console.log(client);
     dispatch(setClientData(client));
   };
 
@@ -55,12 +54,11 @@ const MainLists = () => {
     <section className={mainLists.lists}>
       <ListContainer>
         {companies.map((company) => (
-          <>
+          <React.Fragment key={company.id}>
             <ListItem
               currentId={currentCompanyId}
               path="/"
               className="company"
-              key={company.id}
               text={company.name}
               id={company.id}
               onClick={handleClickCompany}
@@ -68,12 +66,11 @@ const MainLists = () => {
             {isVisibleStreets && currentCompanyId === company.id && (
               <ListContainer>
                 {streets.map((street) => (
-                  <>
+                  <React.Fragment key={street.id}>
                     <ListItem
                       currentId={currentStreetId}
                       className="street"
                       path="/"
-                      key={street.id}
                       text={street.name}
                       id={street.id}
                       onClick={handleClickStreet}
@@ -81,11 +78,10 @@ const MainLists = () => {
                     {isVisibleHouses && currentStreetId === street.id && (
                       <ListContainer>
                         {houses.map((house) => (
-                          <>
+                          <React.Fragment key={house.id}>
                             <ListItem
                               currentId={currentHouseId}
                               path="/"
-                              key={house.id}
                               text={house.name}
                               id={house.id}
                               className="house"
@@ -95,9 +91,9 @@ const MainLists = () => {
                               <ListContainer className="clients">
                                 {clients.map((client) => (
                                   <ListItem
+                                    key={client.addressId}
                                     path="/apartment"
                                     className="client"
-                                    key={client.addressId}
                                     text={client.addressId}
                                     id={client.addressId}
                                     item={client}
@@ -106,15 +102,15 @@ const MainLists = () => {
                                 ))}
                               </ListContainer>
                             )}
-                          </>
+                          </React.Fragment>
                         ))}
                       </ListContainer>
                     )}
-                  </>
+                  </React.Fragment>
                 ))}
               </ListContainer>
             )}
-          </>
+          </React.Fragment>
         ))}
       </ListContainer>
     </section>

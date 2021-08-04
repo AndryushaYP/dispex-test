@@ -1,44 +1,65 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+Тестовое Задание для вакансии Frontend developer Junior/Middle
 
-## Available Scripts
 
-In the project directory, you can run:
+реализовать SPA 
+на javaScript +  reactjs + redux/redux-thunk
 
-### `npm start`
+Пользователь должен выбрать из списка Компанию(Управляющую компанию) 
+и получить список квартир для выбранной Управляющей компании
+Список квартир должен быть в виде "дерева" 
+с возможностью открыть/закрыть "ветвь":
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+  Улица 1
+  ---- Дом 1
+  --------- квартира 1
+  --------- квартира 2
+  --------- квартира 3
+  --------- квартира 4
+  ----- Дом 2
+  --------- квартира 1
+         ...
+  Улица 2
+  ----- Дом 1
+  --------- квартира 1
+  --------- квартира 2
+        ...
+  
+У пользователя должна быть возможность выбрать квартиру, 
+и получить список жильцов в выбранной квартире, 
+а так-же добавить/удалить жильца в выбранной квартире
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Список жильцов должен быть в виде карточек одинакового размера, расположенных справа-налево, сверху-вниз 
 
-### `npm test`
+[1][2][3][4][5][6]
+[7][8][9][A][B][C]
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+——————————————————————————————
 
-### `npm run build`
+swagger - https://dispex.org/api/vtest/docs/swagger/index.html   
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+api base url :  https://dispex.org/api/vtest/ 
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+API:  нужные методы
+Список УК :
+GET  /Request /companies
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Список квартир :
+GET  /HousingStock
 
-### `npm run eject`
+Добавить жильца.
+возвращает id  жильца (client-a) :
+POST /HousingStock /client
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+В методе POST параметры Id и BindId не используются
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Удалить жильца :
+DELETE
+ /HousingStock /bind_client /{id}
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+привязка жильца к квартире
+PUT  /HousingStock /bind_client
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+остальные не нужны
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+—————————————————————————————-
+Технического дизайна хватит - главное функционал

@@ -13,9 +13,10 @@ import ClientForm from "../ClientForm/ClientForm";
 function App() {
   const [isOpen, setIsOpen] = React.useState(false);
   const dispatch = useDispatch();
-  const store = useSelector((state) => state);
-  const { loading, currentApartment, newClientId, currentHouseId } = store;
-
+  const homePageStore = useSelector((state) => state.homePageReducer);
+  const apartmentStore = useSelector((state) => state.apartmentReducer);
+  const { currentHouseId, loading: loadingHome } = homePageStore;
+  const { currentApartment, newClientId, loading: loadingApartment } = apartmentStore;
   React.useEffect(() => {
     dispatch(getDataList(getData, companiesLoaded, "/Request/companies"));
   }, []);
@@ -64,7 +65,7 @@ function App() {
           )}
         </Route>
       </Switch>
-      {loading && <Preloader />}
+      {loadingApartment && loadingHome && <Preloader />}
     </div>
   );
 }
