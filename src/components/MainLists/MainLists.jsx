@@ -13,7 +13,7 @@ const MainLists = () => {
   const [isVisibleClients, setIsVisibleClients] = React.useState(false);
 
   const dispatch = useDispatch();
-  const store = useSelector((state) => state.homePageReducer);
+  const store = useSelector((state) => state);
   const { companies, streets, houses, clients, currentCompanyId, currentStreetId, currentHouseId } =
     store;
 

@@ -1,4 +1,4 @@
-/* import {
+import {
   FETCH_DATA_REQUEST,
   FETCH_DATA_FAILURE,
   FETCH_COMPANIES_SUCCESS,
@@ -124,4 +124,3 @@ const reducer = (state, action) => {
 };
 
 export default reducer;
- */
