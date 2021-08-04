@@ -7,4 +7,3 @@
 * JavaScript
 * HTML
 * CSS
-
